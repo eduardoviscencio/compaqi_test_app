@@ -3,6 +3,8 @@
         android:label="compaqi_test_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+              android:value="AIzaSyDyJuYsgx6-Xfhy6p_RzLgQ9XPeBrASZaQ"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
