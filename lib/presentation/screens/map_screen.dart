@@ -43,7 +43,11 @@ class _MapScreenState extends State<MapScreen> {
     zoom: 14.4746,
   );
 
-  void _onSelectPrediction(Prediction prediction) {
+  void _onSelectPrediction(Prediction? prediction) {
+    if (prediction?.placeId == _selectedPrediction?.placeId) {
+      return;
+    }
+
     setState(() {
       _selectedPrediction = prediction;
     });

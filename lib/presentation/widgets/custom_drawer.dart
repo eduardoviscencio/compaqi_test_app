@@ -35,6 +35,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: backgroundColor,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
@@ -54,7 +55,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       backgroundImage:
                           user?.picture != null
                               ? NetworkImage(user!.picture)
-                              : const AssetImage('assets/images/default_avatar.png')
+                              : const AssetImage('assets/images/default_avatar.webp')
                                   as ImageProvider,
                     ),
                     const SizedBox(height: 15),

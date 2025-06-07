@@ -10,10 +10,12 @@ import 'package:google_places_flutter/model/prediction.dart';
 import 'package:compaqi_test_app/infrastructure/config/config.dart' show Environment;
 import 'package:compaqi_test_app/presentation/theme/colors.dart';
 import 'package:compaqi_test_app/presentation/theme/font_sizes.dart';
+import 'package:compaqi_test_app/presentation/widgets/widgets.dart'
+    show customSnackbar, SnackbarType;
 
 class GooglePlaceTextField extends StatefulWidget {
   final Completer<GoogleMapController> _cameraController;
-  final Function(Prediction)? onSelectPrediction;
+  final Function(Prediction?)? onSelectPrediction;
 
   const GooglePlaceTextField({
     super.key,
@@ -27,6 +29,16 @@ class GooglePlaceTextField extends StatefulWidget {
 
 class _GooglePlaceTextFieldState extends State<GooglePlaceTextField> {
   final TextEditingController _textController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _textController.addListener(() {
+      if (_textController.text.isEmpty) {
+        widget.onSelectPrediction?.call(null);
+      }
+    });
+  }
 
   @override
   void dispose() {
@@ -51,7 +63,9 @@ class _GooglePlaceTextFieldState extends State<GooglePlaceTextField> {
       final GoogleMapController mapController = await widget._cameraController.future;
       mapController.animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, lng), 14));
     } else {
-      // TODO: Show an error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        customSnackbar(message: 'Invalid location selected', type: SnackbarType.warning),
+      );
     }
   }
 
