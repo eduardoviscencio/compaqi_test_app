@@ -85,4 +85,12 @@ class TokenService {
 
     return token != null;
   }
+
+  static Future<String?> getAccessToken() async {
+    return await _storage.read(key: 'accessToken');
+  }
+
+  static Future<String?> getIdToken() async {
+    return await _storage.read(key: 'idToken');
+  }
 }

@@ -21,4 +21,12 @@ class LoginUseCase {
       return false;
     }
   }
+
+  Future<User> getLoggedUser() async {
+    try {
+      return await _authRepository.getLoggedUser();
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

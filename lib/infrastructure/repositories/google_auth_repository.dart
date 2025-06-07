@@ -28,9 +28,33 @@ class GoogleAuthRepository implements AuthRepository {
   Future<bool> isLoggedIn() async {
     try {
       final isAuthenticated = await _googleAppAuth.isAuthenticated();
+
       return isAuthenticated;
     } catch (e) {
       return false;
+    }
+  }
+
+  @override
+  Future<User> getLoggedUser() async {
+    try {
+      final idToken = await _googleAppAuth.getIdToken();
+      final profile = parseIdToken(idToken);
+
+      final GoogleAuthDTO userDTO = GoogleAuthDTO.fromJson(profile);
+
+      return userDTO.toDomain();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> logout() async {
+    try {
+      await _googleAppAuth.logout();
+    } catch (e) {
+      rethrow;
     }
   }
 }

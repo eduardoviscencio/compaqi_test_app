@@ -1,14 +1,36 @@
+import 'package:compaqi_test_app/presentation/widgets/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:compaqi_test_app/domain/models/models.dart' show User;
 import 'package:compaqi_test_app/presentation/providers/providers.dart' show AuthProvider;
-import 'package:compaqi_test_app/presentation/screens/screens.dart' show LocationsScreen;
+import 'package:compaqi_test_app/presentation/screens/screens.dart'
+    show LocationsScreen, AuthScreen;
 import 'package:compaqi_test_app/presentation/theme/colors.dart';
 import 'package:compaqi_test_app/presentation/theme/font_sizes.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
+
+  @override
+  State<CustomDrawer> createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+  Future<void> _onLogout() async {
+    final authProvider = context.read<AuthProvider>();
+    await authProvider.logout();
+
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      customSnackbar(message: 'You have been logged out successfully.', type: SnackbarType.success),
+    );
+
+    Navigator.pop(context);
+
+    Navigator.of(context).pushNamedAndRemoveUntil(AuthScreen.routeName, (route) => false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,9 +92,7 @@ class CustomDrawer extends StatelessWidget {
             visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
             dense: true,
             title: const Text('Logout'),
-            onTap: () {
-              Navigator.pop(context); // Close the drawer
-            },
+            onTap: _onLogout,
           ),
         ],
       ),

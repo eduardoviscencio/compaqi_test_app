@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
-import 'package:compaqi_test_app/application/use_cases/use_cases.dart' show LoginUseCase;
+import 'package:compaqi_test_app/application/use_cases/use_cases.dart'
+    show LoginUseCase, LogoutUseCase;
 import 'package:compaqi_test_app/presentation/providers/auth/auth_state.dart';
 
 class AuthProvider extends ChangeNotifier {
   final LoginUseCase _loginUseCase;
+  final LogoutUseCase _logoutUseCase;
 
   AuthState _state = AuthState.initial();
 
-  AuthProvider({required LoginUseCase loginUseCase}) : _loginUseCase = loginUseCase;
+  AuthProvider({required LoginUseCase loginUseCase, required LogoutUseCase logoutUseCase})
+    : _loginUseCase = loginUseCase,
+      _logoutUseCase = logoutUseCase;
 
   AuthState get state => _state;
 
@@ -21,7 +25,6 @@ class AuthProvider extends ChangeNotifier {
 
       _state = _state.copyWith(user: user, status: AuthStatus.authenticated);
     } catch (e) {
-      print('Login failed: $e');
       _state = _state.copyWith(status: AuthStatus.error);
     }
 
@@ -31,9 +34,36 @@ class AuthProvider extends ChangeNotifier {
   Future<bool> isLoggedIn() async {
     try {
       final isLoggedIn = await _loginUseCase.isLoggedIn();
+
+      if (isLoggedIn) {
+        final user = await _loginUseCase.getLoggedUser();
+        _state = _state.copyWith(user: user, status: AuthStatus.authenticated);
+      } else {
+        _state = _state.copyWith(user: null, status: AuthStatus.unauthenticated);
+      }
+
+      notifyListeners();
+
       return isLoggedIn;
     } catch (e) {
+      _state = _state.copyWith(status: AuthStatus.error);
+      notifyListeners();
+
       return false;
     }
+  }
+
+  Future<void> logout() async {
+    _state = _state.copyWith(status: AuthStatus.idle);
+    notifyListeners();
+
+    try {
+      await _logoutUseCase.execute();
+      _state = _state.copyWith(user: null, status: AuthStatus.unauthenticated);
+    } catch (e) {
+      _state = _state.copyWith(status: AuthStatus.error);
+    }
+
+    notifyListeners();
   }
 }

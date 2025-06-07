@@ -1,3 +1,5 @@
+import 'package:http/http.dart' as http;
+
 import 'package:flutter_appauth/flutter_appauth.dart';
 
 import 'package:compaqi_test_app/infrastructure/config/config.dart' show Environment, OauthConfig;
@@ -7,9 +9,9 @@ class GoogleAppAuth {
   final FlutterAppAuth _appAuth = FlutterAppAuth();
 
   Future<AuthorizationTokenResponse> authenticate() async {
-    try {
-      final OauthConfig oauthConfig = Environment.getOauthConfig();
+    final OauthConfig oauthConfig = Environment.getOauthConfig();
 
+    try {
       final AuthorizationTokenResponse result = await _appAuth.authorizeAndExchangeCode(
         AuthorizationTokenRequest(
           oauthConfig.clientId,
@@ -28,7 +30,7 @@ class GoogleAppAuth {
 
       return result;
     } catch (e) {
-      rethrow;
+      throw Exception('Authentication failed: $e');
     }
   }
 
@@ -37,8 +39,39 @@ class GoogleAppAuth {
       final token = await TokenService.getValidAccessToken();
 
       return token != null;
-    } catch (_) {
-      return false;
+    } catch (e) {
+      throw Exception('Failed to check authentication status: $e');
+    }
+  }
+
+  Future<String> getIdToken() async {
+    try {
+      final idToken = await TokenService.getIdToken();
+
+      if (idToken == null || idToken.isEmpty) {
+        throw Exception('ID Token not found');
+      }
+
+      return idToken;
+    } catch (e) {
+      throw Exception('Failed to retrieve ID Token: $e');
+    }
+  }
+
+  Future<void> logout() async {
+    try {
+      final token = await TokenService.getAccessToken();
+
+      if (token != null && token.isNotEmpty) {
+        await http.post(
+          Uri.parse('https://oauth2.googleapis.com/revoke?token=$token'),
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        );
+      }
+
+      await TokenService.logout();
+    } catch (e) {
+      throw Exception('Logout failed: $e');
     }
   }
 }
