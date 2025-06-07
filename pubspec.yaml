@@ -32,8 +32,10 @@ dependencies:
   equatable: ^2.0.7
   flutter:
     sdk: flutter
+  flutter_appauth: ^9.0.1
   google_maps_flutter: ^2.12.2
   google_places_flutter: ^2.1.0
+  http: ^1.4.0
   provider: ^6.1.5
 
 dev_dependencies:
