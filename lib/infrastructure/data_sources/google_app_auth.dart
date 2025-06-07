@@ -1,14 +1,17 @@
 import 'package:flutter_appauth/flutter_appauth.dart';
 
+import 'package:compaqi_test_app/infrastructure/utils/environment.dart';
+
 class GoogleAppAuth {
   Future<AuthorizationTokenResponse> authenticate() async {
     try {
       final FlutterAppAuth appAuth = FlutterAppAuth();
+      final Map<String, String> oauthConfig = Environment.getOauthConfig();
 
       final AuthorizationTokenResponse result = await appAuth.authorizeAndExchangeCode(
         AuthorizationTokenRequest(
-          '699390330628-73n9v1l6r6ihv06uh2rum0hgv75ad553.apps.googleusercontent.com',
-          'com.eduardoviscencio.compaqiTestApp:/oauthredirect',
+          oauthConfig['clientId']!,
+          oauthConfig['redirectUri']!,
           discoveryUrl: 'https://accounts.google.com/.well-known/openid-configuration',
           scopes: ['openid', 'profile', 'email'],
         ),

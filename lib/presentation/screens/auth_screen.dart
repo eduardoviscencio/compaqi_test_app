@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:compaqi_test_app/presentation/providers/auth/auth_state.dart' show AuthStatus;
 import 'package:compaqi_test_app/presentation/providers/providers.dart' show AuthProvider;
+import 'package:compaqi_test_app/presentation/screens/screens.dart' show MapScreen;
 import 'package:compaqi_test_app/presentation/theme/colors.dart';
+import 'package:compaqi_test_app/presentation/theme/font_sizes.dart';
+import 'package:compaqi_test_app/presentation/widgets/widgets.dart'
+    show customSnackbar, SnackbarType;
 
 class AuthScreen extends StatefulWidget {
   static const String routeName = 'auth_screen';
@@ -16,16 +21,30 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   Future<void> _authenticate() async {
     try {
-      context.read<AuthProvider>().login();
+      await context.read<AuthProvider>().login();
+
+      if (!mounted) {
+        return;
+      }
+
+      final AuthStatus status = context.read<AuthProvider>().state.status;
+
+      if (status == AuthStatus.authenticated) {
+        Navigator.of(context).pushReplacementNamed(MapScreen.routeName);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          customSnackbar(message: 'Login failed. Please try again.', type: SnackbarType.error),
+        );
+      }
     } catch (e) {
       if (!mounted) {
         return;
       }
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('You cannot login with Google. Please try again later.'),
-          backgroundColor: errorColor,
+        customSnackbar(
+          message: 'You cannot login with Google at this time.',
+          type: SnackbarType.error,
         ),
       );
     }
@@ -34,8 +53,69 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ElevatedButton(onPressed: _authenticate, child: Text('Login with Google')),
+      backgroundColor: primaryColor,
+      body: Stack(
+        children: [
+          ColorFiltered(
+            colorFilter: ColorFilter.mode(primaryColor.withAlpha(220), BlendMode.srcOver),
+            child: Image(
+              image: const AssetImage('assets/images/background.webp'),
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+            ),
+          ),
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Welcome to the Locations App',
+                          style: TextStyle(
+                            fontSize: 36,
+                            color: lightTextColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          'Share your favorite locations with the world',
+                          style: TextStyle(fontSize: 18, color: lightTextColor),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: _authenticate,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: primaryColor,
+                      padding: const EdgeInsets.all(12.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        side: BorderSide(color: surfaceColor, width: 0.4),
+                      ),
+                    ),
+                    label: Text(
+                      'Login with Google',
+                      style: TextStyle(fontSize: fontSizeText, color: lightTextColor),
+                    ),
+                    icon: Image(
+                      image: const AssetImage('assets/images/google_icon.webp'),
+                      width: 24,
+                      height: 24,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

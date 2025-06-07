@@ -7,7 +7,8 @@ import 'package:google_places_flutter/model/prediction.dart';
 
 import 'package:compaqi_test_app/presentation/theme/colors.dart';
 import 'package:compaqi_test_app/presentation/theme/font_sizes.dart';
-import 'package:compaqi_test_app/presentation/widgets/widgets.dart';
+import 'package:compaqi_test_app/presentation/widgets/widgets.dart'
+    show GooglePlaceTextField, CustomDrawer;
 
 class MapScreen extends StatefulWidget {
   static const String routeName = 'map_screen';

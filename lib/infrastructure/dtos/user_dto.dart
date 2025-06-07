@@ -1,20 +1,20 @@
 import 'package:compaqi_test_app/domain/models/models.dart' show User;
 
 class UserDTO {
-  String iss;
-  String azp;
-  String aud;
-  double sub;
-  String email;
-  bool emailVerified;
-  String atHash;
-  String nonce;
-  String name;
-  String picture;
-  String givenName;
-  String familyName;
-  int iat;
-  int exp;
+  final String iss;
+  final String azp;
+  final String aud;
+  final String sub;
+  final String email;
+  final bool emailVerified;
+  final String atHash;
+  final String nonce;
+  final String name;
+  final String picture;
+  final String givenName;
+  final String familyName;
+  final int iat;
+  final int exp;
 
   UserDTO({
     required this.iss,
@@ -37,7 +37,7 @@ class UserDTO {
     iss: json["iss"],
     azp: json["azp"],
     aud: json["aud"],
-    sub: json["sub"]?.toDouble(),
+    sub: json["sub"],
     email: json["email"],
     emailVerified: json["email_verified"],
     atHash: json["at_hash"],
