@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:compaqi_test_app/infrastructure/utils/environment.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -8,6 +7,7 @@ import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/place_type.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 
+import 'package:compaqi_test_app/infrastructure/config/config.dart' show Environment;
 import 'package:compaqi_test_app/presentation/theme/colors.dart';
 import 'package:compaqi_test_app/presentation/theme/font_sizes.dart';
 

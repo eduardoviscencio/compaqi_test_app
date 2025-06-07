@@ -19,6 +19,25 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _checkSession();
+  }
+
+  Future<void> _checkSession() async {
+    final authProvider = context.read<AuthProvider>();
+    final isLoggedIn = await authProvider.isLoggedIn();
+
+    if (!mounted) return;
+
+    if (isLoggedIn) {
+      await Future.delayed(const Duration(milliseconds: 100));
+      if (!mounted) return;
+      Navigator.of(context).pushReplacementNamed(MapScreen.routeName);
+    }
+  }
+
   Future<void> _authenticate() async {
     try {
       await context.read<AuthProvider>().login();

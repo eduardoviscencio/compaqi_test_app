@@ -13,4 +13,12 @@ class LoginUseCase {
       rethrow;
     }
   }
+
+  Future<bool> isLoggedIn() async {
+    try {
+      return await _authRepository.isLoggedIn();
+    } catch (e) {
+      return false;
+    }
+  }
 }

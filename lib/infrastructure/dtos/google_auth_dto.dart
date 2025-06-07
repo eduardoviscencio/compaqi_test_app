@@ -1,6 +1,6 @@
 import 'package:compaqi_test_app/domain/models/models.dart' show User;
 
-class UserDTO {
+class GoogleAuthDTO {
   final String iss;
   final String azp;
   final String aud;
@@ -16,7 +16,7 @@ class UserDTO {
   final int iat;
   final int exp;
 
-  UserDTO({
+  GoogleAuthDTO({
     required this.iss,
     required this.azp,
     required this.aud,
@@ -33,7 +33,7 @@ class UserDTO {
     required this.exp,
   });
 
-  factory UserDTO.fromJson(Map<String, dynamic> json) => UserDTO(
+  factory GoogleAuthDTO.fromJson(Map<String, dynamic> json) => GoogleAuthDTO(
     iss: json["iss"],
     azp: json["azp"],
     aud: json["aud"],

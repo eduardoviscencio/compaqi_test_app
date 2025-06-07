@@ -21,9 +21,19 @@ class AuthProvider extends ChangeNotifier {
 
       _state = _state.copyWith(user: user, status: AuthStatus.authenticated);
     } catch (e) {
+      print('Login failed: $e');
       _state = _state.copyWith(status: AuthStatus.error);
     }
 
     notifyListeners();
+  }
+
+  Future<bool> isLoggedIn() async {
+    try {
+      final isLoggedIn = await _loginUseCase.isLoggedIn();
+      return isLoggedIn;
+    } catch (e) {
+      return false;
+    }
   }
 }
