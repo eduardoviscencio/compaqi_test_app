@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -10,6 +11,7 @@ import 'package:google_places_flutter/model/prediction.dart';
 import 'package:compaqi_test_app/infrastructure/config/config.dart' show Environment;
 import 'package:compaqi_test_app/presentation/theme/colors.dart';
 import 'package:compaqi_test_app/presentation/theme/font_sizes.dart';
+import 'package:compaqi_test_app/presentation/ui/ui.dart' show Decorations;
 import 'package:compaqi_test_app/presentation/widgets/widgets.dart'
     show customSnackbar, SnackbarType;
 
@@ -106,21 +108,10 @@ class _GooglePlaceTextFieldState extends State<GooglePlaceTextField> {
               textStyle: TextStyle(color: primaryColor, fontSize: fontSizeText),
               boxDecoration: BoxDecoration(color: backgroundColor),
               googleAPIKey: Environment.mapsApiKey,
-              inputDecoration: InputDecoration(
-                prefixIcon: Icon(Icons.search, color: primaryColor, size: iconSize),
-                border: OutlineInputBorder(),
-                enabledBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(color: surfaceDarkerColor, width: .5),
-                ),
-                focusedBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(color: primaryColor, width: .5),
-                ),
-                hintText: 'Enter a location name',
-                focusColor: backgroundColor,
-                hintStyle: const TextStyle(color: surfaceDarkerColor, fontSize: fontSizeText),
-                floatingLabelStyle: const TextStyle(color: primaryColor, fontSize: fontSizeText),
-                labelText: 'Search for a location',
-                labelStyle: const TextStyle(color: surfaceDarkerColor, fontSize: fontSizeText),
+              inputDecoration: Decorations.textFieldDecoration(
+                labelText: AppLocalizations.of(context)!.searchLocationInputLabel,
+                hintText: AppLocalizations.of(context)!.searchLocationInputHint,
+                prefixIcon: Icons.search_rounded,
               ),
               debounceTime: 800,
               isLatLngRequired: true,

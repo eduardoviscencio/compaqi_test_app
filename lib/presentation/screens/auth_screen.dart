@@ -1,3 +1,4 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -76,7 +77,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Welcome to the Locations App',
+                          AppLocalizations.of(context)!.authHeading,
                           style: TextStyle(
                             fontSize: 36,
                             color: lightTextColor,
@@ -85,7 +86,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          'Share your favorite locations with the world',
+                          AppLocalizations.of(context)!.authSubHeading,
                           style: TextStyle(fontSize: 18, color: lightTextColor),
                         ),
                       ],
@@ -102,7 +103,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                     ),
                     label: Text(
-                      'Login with Google',
+                      AppLocalizations.of(context)!.loginGoogleLabel,
                       style: TextStyle(fontSize: fontSizeText, color: lightTextColor),
                     ),
                     icon: Image(

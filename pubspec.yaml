@@ -33,11 +33,14 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_appauth: ^9.0.1
+  flutter_localizations:
+    sdk: flutter
   flutter_native_splash: ^2.4.6
   flutter_secure_storage: ^9.2.4
   google_maps_flutter: ^2.12.2
   google_places_flutter: ^2.1.0
   http: ^1.4.0
+  intl: any
   provider: ^6.1.5
 
 dev_dependencies:
@@ -49,7 +52,7 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
 flutter:
-
+  generate: true 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

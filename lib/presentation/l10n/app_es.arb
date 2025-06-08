@@ -1,0 +1,17 @@
+{
+  "authHeading": "Bienvenido a Locations App",
+  "authSubHeading": "Comparte tus lugares favoritos con el mundo",
+  "loginGoogleLabel": "Entrar con Google",
+  "favoriteLocations": "Todos los lugares favoritos",
+  "searchLocationInputLabel": "Busca tu lugar favorito",
+  "searchLocationInputHint": "Escribe un lugar",
+  "saveFavoriteLabel": "Guardar como favorito",
+  "guest": "Invitado",
+  "email": "No autenticado",
+  "logout": "Salir",
+  "saveLocationHeading": "Guardar lugar como favorito",
+  "saveLocationInputHint": "Escribe una etiqueta para el lugar",
+  "saveLocationInputLabel": "Etiqueta del lugar",
+  "saveLocationLabel": "Guardar",
+  "invalidInputValue": "Please enter a valid value"
+}

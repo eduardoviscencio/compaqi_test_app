@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:compaqi_test_app/presentation/screens/screens.dart';
@@ -43,6 +45,13 @@ class MyApp extends StatelessWidget {
         color: surfaceColor,
         title: 'Locations App',
         theme: themeData,
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: [Locale('en'), Locale('es')],
         initialRoute: LoadingCredentialsScreen.routeName,
         routes: {
           LoadingCredentialsScreen.routeName: ((_) => const LoadingCredentialsScreen()),

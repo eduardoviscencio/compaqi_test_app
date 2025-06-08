@@ -1,3 +1,4 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class LocationsScreen extends StatelessWidget {
@@ -8,7 +9,7 @@ class LocationsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('All favorite locations')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.favoriteLocations)),
       body: Center(child: Text('Locations Screen')),
     );
   }

@@ -1,4 +1,4 @@
-import 'package:compaqi_test_app/presentation/widgets/custom_snackbar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,6 +8,8 @@ import 'package:compaqi_test_app/presentation/screens/screens.dart'
     show LocationsScreen, AuthScreen;
 import 'package:compaqi_test_app/presentation/theme/colors.dart';
 import 'package:compaqi_test_app/presentation/theme/font_sizes.dart';
+import 'package:compaqi_test_app/presentation/widgets/widgets.dart'
+    show customSnackbar, SnackbarType;
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -61,14 +63,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     const SizedBox(height: 15),
                     Expanded(
                       child: Text(
-                        user?.name ?? 'Guest',
+                        user?.name ?? AppLocalizations.of(context)!.guest,
                         style: TextStyle(fontSize: fontSizeH1, color: Colors.white),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     Expanded(
                       child: Text(
-                        user?.email ?? 'Not logged in',
+                        user?.email ?? AppLocalizations.of(context)!.email,
                         style: TextStyle(fontSize: fontSizeText, color: Colors.white70),
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -82,7 +84,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             leading: const Icon(Icons.favorite, size: iconSize),
             visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
             dense: true,
-            title: const Text('All favorite locations'),
+            title: Text(AppLocalizations.of(context)!.favoriteLocations),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, LocationsScreen.routeName);
@@ -92,7 +94,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             leading: const Icon(Icons.logout_rounded, size: iconSize),
             visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
             dense: true,
-            title: const Text('Logout'),
+            title: Text(AppLocalizations.of(context)!.logout),
             onTap: _onLogout,
           ),
         ],
