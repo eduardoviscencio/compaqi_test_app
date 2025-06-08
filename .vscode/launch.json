@@ -33,7 +33,6 @@
         "args": [
           "--dart-define-from-file",
           "env.json",
-          "lib/main_dev.dart"
         ]
       },
     ]

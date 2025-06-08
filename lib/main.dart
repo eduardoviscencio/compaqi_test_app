@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 
 import 'package:compaqi_test_app/presentation/screens/screens.dart';
@@ -12,7 +13,11 @@ import 'package:compaqi_test_app/infrastructure/repositories/repositories.dart'
     show GoogleAuthRepository;
 import 'package:compaqi_test_app/presentation/providers/providers.dart' show AuthProvider;
 
-void main() => runApp(const MyApp());
+void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -38,8 +43,9 @@ class MyApp extends StatelessWidget {
         color: surfaceColor,
         title: 'Locations App',
         theme: themeData,
-        initialRoute: AuthScreen.routeName,
+        initialRoute: LoadingCredentialsScreen.routeName,
         routes: {
+          LoadingCredentialsScreen.routeName: ((_) => const LoadingCredentialsScreen()),
           AuthScreen.routeName: ((_) => AuthScreen()),
           MapScreen.routeName: ((_) => const MapScreen()),
           LocationsScreen.routeName: ((_) => const LocationsScreen()),

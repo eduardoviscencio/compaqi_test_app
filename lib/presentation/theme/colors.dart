@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // Primary
-const Color primaryColor = Color.fromRGBO(34, 34, 34, 1);
+const Color primaryColor = Color.fromRGBO(43, 43, 43, 1);
 
 // Neutral
 const Color backgroundColor = Color.fromRGBO(255, 255, 255, 1);
