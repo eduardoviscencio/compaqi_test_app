@@ -60,7 +60,8 @@ class TokenService {
         result.accessTokenExpirationDateTime,
       );
       return true;
-    } catch (_) {
+    } catch (e) {
+      print('Error refreshing tokens: $e');
       return false;
     }
   }

@@ -17,18 +17,18 @@ class AuthProvider extends ChangeNotifier {
   AuthState get state => _state;
 
   Future<void> login() async {
-    _state = _state.copyWith(status: AuthStatus.idle);
-    notifyListeners();
-
     try {
+      _state = _state.copyWith(status: AuthStatus.idle);
+      notifyListeners();
+
       final user = await _loginUseCase.execute();
 
       _state = _state.copyWith(user: user, status: AuthStatus.authenticated);
     } catch (e) {
       _state = _state.copyWith(status: AuthStatus.error);
+    } finally {
+      notifyListeners();
     }
-
-    notifyListeners();
   }
 
   Future<bool> isLoggedIn() async {
@@ -54,16 +54,16 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<void> logout() async {
-    _state = _state.copyWith(status: AuthStatus.idle);
-    notifyListeners();
-
     try {
+      _state = _state.copyWith(status: AuthStatus.idle);
+      notifyListeners();
+
       await _logoutUseCase.execute();
       _state = _state.copyWith(user: null, status: AuthStatus.unauthenticated);
     } catch (e) {
       _state = _state.copyWith(status: AuthStatus.error);
+    } finally {
+      notifyListeners();
     }
-
-    notifyListeners();
   }
 }

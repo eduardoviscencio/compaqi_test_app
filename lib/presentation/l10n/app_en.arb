@@ -13,5 +13,8 @@
   "saveLocationInputHint": "Enter a location tag",
   "saveLocationInputLabel": "Location tag",
   "saveLocationLabel": "Save",
-  "invalidInputValue": "Por favor, ingresa un valor válido"
+  "invalidInputValue": "Please enter a valid value",
+  "fetchError": "Failed to load data",
+  "you": "You",
+  "noLocations": "No saved locations"
 }

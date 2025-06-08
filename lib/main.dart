@@ -8,12 +8,11 @@ import 'package:compaqi_test_app/presentation/screens/screens.dart';
 import 'package:compaqi_test_app/presentation/theme/colors.dart';
 import 'package:compaqi_test_app/presentation/theme/theme_data.dart';
 
-import 'package:compaqi_test_app/application/use_cases/use_cases.dart'
-    show LoginUseCase, LogoutUseCase;
-import 'package:compaqi_test_app/infrastructure/data_sources/data_sources.dart' show GoogleAppAuth;
-import 'package:compaqi_test_app/infrastructure/repositories/repositories.dart'
-    show GoogleAuthRepository;
-import 'package:compaqi_test_app/presentation/providers/providers.dart' show AuthProvider;
+import 'package:compaqi_test_app/application/use_cases/use_cases.dart';
+import 'package:compaqi_test_app/di/injection.dart';
+import 'package:compaqi_test_app/infrastructure/data_sources/data_sources.dart';
+import 'package:compaqi_test_app/infrastructure/repositories/repositories.dart';
+import 'package:compaqi_test_app/presentation/providers/providers.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -37,6 +36,12 @@ class MyApp extends StatelessWidget {
                 logoutUseCase: LogoutUseCase(
                   authRepository: GoogleAuthRepository(dataSource: GoogleAppAuth()),
                 ),
+              ),
+        ),
+        ChangeNotifierProvider(
+          create:
+              (_) => LocationsProvider(
+                getSavedLocationsUseCase: DependencyInjector.getSavedLocationsUseCase(),
               ),
         ),
       ],

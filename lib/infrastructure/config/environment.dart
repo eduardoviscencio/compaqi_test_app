@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:compaqi_test_app/infrastructure/config/config.dart' show OauthConfig;
 
 class Environment {
+  static const String apiUrl = String.fromEnvironment('API_URL', defaultValue: 'api_url_not_found');
+
   static String get mapsApiKey =>
       const String.fromEnvironment('GOOGLE_MAPS_API_KEY', defaultValue: 'api_key_not_found');
 

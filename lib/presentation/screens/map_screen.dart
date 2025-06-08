@@ -1,14 +1,17 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
+import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 
+import 'package:compaqi_test_app/presentation/providers/providers.dart' show LocationsProvider;
 import 'package:compaqi_test_app/presentation/theme/colors.dart';
 import 'package:compaqi_test_app/presentation/theme/font_sizes.dart';
 import 'package:compaqi_test_app/presentation/widgets/widgets.dart'
-    show GooglePlaceTextField, CustomDrawer;
+    show GooglePlaceTextField, CustomDrawer, SaveLocationBottomSheet, customSnackbar, SnackbarType;
 
 class MapScreen extends StatefulWidget {
   static const String routeName = 'map_screen';
@@ -29,13 +32,42 @@ class _MapScreenState extends State<MapScreen> {
   void initState() {
     super.initState();
 
-    _markers.add(
-      const Marker(
-        markerId: MarkerId('marker_1'),
-        position: LatLng(37.42796133580664, -122.085749655962),
-        infoWindow: InfoWindow(title: 'Google Plex'),
-      ),
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _fetchLocations();
+      _generateMarkers();
+    });
+  }
+
+  Future<void> _fetchLocations() async {
+    try {
+      await context.read<LocationsProvider>().fetchLocations();
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        customSnackbar(message: 'Could not fetch locations', type: SnackbarType.error),
+      );
+    }
+  }
+
+  void _generateMarkers() {
+    final locations = context.read<LocationsProvider>().state.locations;
+
+    if (locations.isEmpty) {
+      return;
+    }
+
+    for (final location in locations) {
+      _markers.add(
+        Marker(
+          markerId: MarkerId(location.id),
+          position: LatLng(location.latitude, location.longitude),
+          infoWindow: InfoWindow(title: location.tag, snippet: location.userEmail),
+        ),
+      );
+    }
+
+    setState(() {});
   }
 
   static const CameraPosition _kGooglePlex = CameraPosition(
@@ -54,13 +86,27 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   void _onPressFAB() async {
-    // TODO: Implement the logic to save the selected prediction as a favorite location.
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return SaveLocationBottomSheet(
+          onSaved: (String? value) {
+            if (value != null && value.isNotEmpty) {
+              print(value);
+              // addField(value);
+            }
+          },
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Locations App')),
+      resizeToAvoidBottomInset: false,
       drawer: CustomDrawer(),
       drawerEnableOpenDragGesture: false,
       body: SafeArea(
@@ -99,8 +145,8 @@ class _MapScreenState extends State<MapScreen> {
                 backgroundColor: primaryColor,
                 onPressed: _onPressFAB,
                 icon: const Icon(Icons.favorite, size: iconSize, color: lightTextColor),
-                label: const Text(
-                  'Save as favorite',
+                label: Text(
+                  AppLocalizations.of(context)!.saveFavoriteLabel,
                   style: TextStyle(color: lightTextColor, fontSize: fontSizeText),
                 ),
               ),

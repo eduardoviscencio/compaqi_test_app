@@ -13,5 +13,8 @@
   "saveLocationInputHint": "Escribe una etiqueta para el lugar",
   "saveLocationInputLabel": "Etiqueta del lugar",
   "saveLocationLabel": "Guardar",
-  "invalidInputValue": "Please enter a valid value"
+  "invalidInputValue": "Por favor, ingresa un valor válido",
+  "fetchError": "Ocurrió un error al obtener los datos",
+  "you": "Tú",
+  "noLocations": "No hay lugares guardados"
 }
