@@ -7,6 +7,7 @@ const Color primaryColor = Color.fromRGBO(43, 43, 43, 1);
 const Color backgroundColor = Color.fromRGBO(255, 255, 255, 1);
 const Color lightTextColor = Color.fromRGBO(255, 255, 255, 1);
 const Color surfaceColor = Color.fromRGBO(247, 247, 247, 1);
+const Color surfaceMediumColor = Color.fromRGBO(230, 230, 230, 1);
 const Color surfaceDarkerColor = Color.fromRGBO(146, 146, 146, 1);
 
 // Semantic

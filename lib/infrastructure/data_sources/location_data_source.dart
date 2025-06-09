@@ -5,6 +5,5 @@ import 'package:compaqi_test_app/domain/models/models.dart';
 abstract class LocationDataSource {
   Future<http.Response> fetchLocations();
   Future<http.Response> saveLocation(Location location);
-  // Future<void> removeLocation(String id);
-  // Future<int> exists(String id);
+  Future<http.Response> deleteLocation(String id);
 }

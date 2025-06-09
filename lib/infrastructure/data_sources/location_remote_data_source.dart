@@ -60,23 +60,25 @@ class LocationRemoteDataSource implements LocationDataSource {
     }
   }
 
-  // Future<void> removeLocation(String id) async {
-  //   final response = await client.delete(Uri.parse('$baseUrl/locations/$id'));
+  @override
+  Future<http.Response> deleteLocation(String id) async {
+    try {
+      final Uri uri = Uri.https(_baseUrl, '/api/locations/$id');
 
-  //   if (response.statusCode != 200 && response.statusCode != 204) {
-  //     throw Exception('Failed to delete location');
-  //   }
-  // }
+      final token = await TokenService.getIdToken();
 
-  // Future<bool> exists(String id) async {
-  //   final response = await client.get(Uri.parse('$baseUrl/locations/$id'));
+      if (token == null || token.isEmpty) {
+        throw Exception('Access token is not available');
+      }
 
-  //   if (response.statusCode == 200) {
-  //     return true;
-  //   } else if (response.statusCode == 404) {
-  //     return false;
-  //   } else {
-  //     throw Exception('Failed to check if location exists');
-  //   }
-  // }
+      final response = await http.delete(
+        uri,
+        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer $token'},
+      );
+
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

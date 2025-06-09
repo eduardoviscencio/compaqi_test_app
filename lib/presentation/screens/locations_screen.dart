@@ -1,3 +1,4 @@
+import 'package:compaqi_test_app/presentation/theme/font_sizes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -46,6 +47,30 @@ class _LocationsScreenState extends State<LocationsScreen> {
     return email == _currentUserEmail ? AppLocalizations.of(context)!.you : email;
   }
 
+  Future<void> _onDelete(String id) async {
+    try {
+      await context.read<LocationsProvider>().deleteLocation(id);
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        customSnackbar(
+          message: AppLocalizations.of(context)!.locationDeleted,
+          type: SnackbarType.success,
+        ),
+      );
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        customSnackbar(
+          message: AppLocalizations.of(context)!.deleteLocationError,
+          type: SnackbarType.error,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final status = context.select<LocationsProvider, LocationsStatus>(
@@ -78,15 +103,36 @@ class _LocationsScreenState extends State<LocationsScreen> {
             return Center(child: Text(AppLocalizations.of(context)!.noLocations));
           }
 
-          return ListView.builder(
+          return ListView.separated(
             physics: const BouncingScrollPhysics(),
             itemCount: locations.length,
+            separatorBuilder: (_, __) => const Divider(height: 0.4, color: surfaceMediumColor),
             itemBuilder: (context, index) {
               final location = locations[index];
 
+              final isCreatedByCurrentUser = location.userEmail == _currentUserEmail;
+
               return ListTile(
-                title: Text(location.tag, overflow: TextOverflow.ellipsis, maxLines: 2),
-                subtitle: Text(_getUserLabel(location.userEmail), overflow: TextOverflow.ellipsis),
+                key: ValueKey(location.id),
+                dense: true,
+                title: Text(
+                  location.tag,
+                  style: TextStyle(fontSize: fontSizeText, fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                ),
+                subtitle: Text(
+                  _getUserLabel(location.userEmail),
+                  style: TextStyle(fontSize: fontSizeText),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                trailing:
+                    !isCreatedByCurrentUser
+                        ? null
+                        : IconButton(
+                          icon: const Icon(Icons.delete, color: errorColor, size: iconSize),
+                          onPressed: () => _onDelete(location.id),
+                        ),
                 onTap: () {
                   // Handle location tap
                 },

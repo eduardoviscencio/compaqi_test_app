@@ -19,5 +19,7 @@
   "noLocations": "No hay lugares guardados",
   "selectedLocation": "Lugar seleccionado",
   "locationSaved": "Lugar guardado correctamente",
-  "locationSaveError": "No se pudo guardar el lugar"
+  "locationSaveError": "No se pudo guardar el lugar",
+  "locationDeleted": "Lugar eliminado correctamente",
+  "deleteLocationError": "No se pudo eliminar el lugar"
 }

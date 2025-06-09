@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 
+import 'package:compaqi_test_app/presentation/providers/locations/locations_state.dart';
 import 'package:compaqi_test_app/presentation/providers/providers.dart' show LocationsProvider;
 import 'package:compaqi_test_app/presentation/theme/colors.dart';
 import 'package:compaqi_test_app/presentation/theme/font_sizes.dart';
@@ -36,9 +37,18 @@ class _MapScreenState extends State<MapScreen> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final provider = context.read<LocationsProvider>();
+      provider.addListener(_onLocationsUpdated);
+
       await _fetchLocations();
       _generateMarkers();
     });
+  }
+
+  @override
+  void dispose() {
+    context.read<LocationsProvider>().removeListener(_onLocationsUpdated);
+    super.dispose();
   }
 
   Future<void> _fetchLocations() async {
@@ -48,9 +58,32 @@ class _MapScreenState extends State<MapScreen> {
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        customSnackbar(message: 'Could not fetch locations', type: SnackbarType.error),
+        customSnackbar(message: 'Failed to fetch locations', type: SnackbarType.error),
       );
     }
+  }
+
+  void _onLocationsUpdated() {
+    final state = context.read<LocationsProvider>().state;
+
+    if (state.status == LocationsStatus.loading) {
+      return;
+    }
+
+    final newMarkers = state.locations.map((location) {
+      return Marker(
+        markerId: MarkerId(location.id),
+        position: LatLng(location.latitude, location.longitude),
+        infoWindow: InfoWindow(title: location.tag, snippet: location.userEmail),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+      );
+    });
+
+    setState(() {
+      _markers
+        ..clear()
+        ..addAll(newMarkers);
+    });
   }
 
   void _generateMarkers() {
@@ -119,8 +152,6 @@ class _MapScreenState extends State<MapScreen> {
           _selectedPrediction = null;
           _markers.removeWhere((marker) => marker.markerId.value == 'temporal');
         });
-
-        _generateMarkers();
 
         if (!mounted) return;
 

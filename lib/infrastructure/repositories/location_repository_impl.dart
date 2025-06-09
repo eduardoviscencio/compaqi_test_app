@@ -60,21 +60,16 @@ class LocationRepositoryImpl implements LocationRepository {
     }
   }
 
-  // @override
-  // Future<void> deleteLocation(String id) async {
-  //   try {
-  //     await _remoteDataSource.removeLocation(id);
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
+  @override
+  Future<void> deleteLocation(String id) async {
+    try {
+      final response = await _remoteDataSource.deleteLocation(id);
 
-  // @override
-  // Future<bool> isLocationSaved(String id) async {
-  //   try {
-  //     return await _remoteDataSource.exists(id);
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
+      if (response.statusCode != 200) {
+        throw Exception('Failed to delete location: ${response.statusCode}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

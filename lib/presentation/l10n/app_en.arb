@@ -19,5 +19,7 @@
   "noLocations": "No saved locations",
   "selectedLocation": "Selected location",
   "locationSaved": "Location saved successfully",
-  "locationSaveError": "Failed to save the location"
+  "locationSaveError": "Failed to save the location",
+  "locationDeleted": "Location deleted successfully",
+  "deleteLocationError": "Failed to delete the location"
 }

@@ -13,7 +13,7 @@ class AuthState extends Equatable {
   factory AuthState.initial() => AuthState(user: null);
 
   @override
-  List<Object?> get props => [user];
+  List<Object?> get props => [user, status];
 
   AuthState copyWith({User? user, AuthStatus? status}) {
     return AuthState(user: user ?? this.user, status: status ?? this.status);

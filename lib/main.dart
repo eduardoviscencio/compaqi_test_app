@@ -30,12 +30,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create:
               (_) => AuthProvider(
-                loginUseCase: LoginUseCase(
-                  authRepository: GoogleAuthRepository(dataSource: GoogleAppAuth()),
-                ),
-                logoutUseCase: LogoutUseCase(
-                  authRepository: GoogleAuthRepository(dataSource: GoogleAppAuth()),
-                ),
+                loginUseCase: DependencyInjector.loginUseCase(),
+                logoutUseCase: DependencyInjector.logoutUseCase(),
               ),
         ),
         ChangeNotifierProvider(
@@ -43,6 +39,7 @@ class MyApp extends StatelessWidget {
               (_) => LocationsProvider(
                 getSavedLocationsUseCase: DependencyInjector.getSavedLocationsUseCase(),
                 addLocationUseCase: DependencyInjector.addLocationUseCase(),
+                deleteLocationUseCase: DependencyInjector.deleteLocationUseCase(),
               ),
         ),
       ],
