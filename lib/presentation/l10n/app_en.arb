@@ -1,30 +1,114 @@
 {
   "authHeading": "Welcome to the Locations App",
+  "@authHeading": {
+    "description": "Main heading text displayed on the authentication/login screen"
+  },
   "authSubHeading": "Share your favorite locations with the world",
+  "@authSubHeading": {
+    "description": "Subheading text displayed below the main heading on the authentication screen"
+  },
   "loginGoogleLabel": "Login with Google",
+  "@loginGoogleLabel": {
+    "description": "Text displayed on the Google login button"
+  },
   "favoriteLocations": "All favorite locations",
+  "@favoriteLocations": {
+    "description": "Title for the screen or section showing all user's favorite locations"
+  },
   "searchLocationInputLabel": "Search for your favorite location",
+  "@searchLocationInputLabel": {
+    "description": "Label for the search input field used to find locations"
+  },
   "searchLocationInputHint": "Enter a location",
+  "@searchLocationInputHint": {
+    "description": "Placeholder text shown inside the location search input field"
+  },
   "saveFavoriteLabel": "Save as favorite",
+  "@saveFavoriteLabel": {
+    "description": "Button text for saving a location as a favorite"
+  },
   "guest": "Guest",
+  "@guest": {
+    "description": "Display name shown for users who are not logged in"
+  },
   "email": "Not logged in",
+  "@email": {
+    "description": "Text shown in place of email when user is not authenticated"
+  },
   "logout": "Logout",
+  "@logout": {
+    "description": "Button text for logging out of the application"
+  },
   "saveLocationHeading": "Save location as favorite",
+  "@saveLocationHeading": {
+    "description": "Heading text for the screen where users save a location as favorite"
+  },
   "saveLocationInputHint": "Enter a location tag",
+  "@saveLocationInputHint": {
+    "description": "Placeholder text for the input field where users enter a custom tag/name for the location"
+  },
   "saveLocationInputLabel": "Location tag",
+  "@saveLocationInputLabel": {
+    "description": "Label for the input field where users enter a custom tag/name for the location"
+  },
   "saveLocationLabel": "Save",
+  "@saveLocationLabel": {
+    "description": "Button text for confirming and saving a location"
+  },
   "invalidInputValue": "Please enter a valid value",
+  "@invalidInputValue": {
+    "description": "Error message shown when user enters invalid data in input fields"
+  },
   "fetchError": "Failed to load data",
+  "@fetchError": {
+    "description": "Generic error message displayed when data loading fails"
+  },
   "you": "You",
+  "@you": {
+    "description": "Text used to identify the current user in lists or comparisons"
+  },
   "noLocations": "No saved locations",
+  "@noLocations": {
+    "description": "Message displayed when user has no saved favorite locations"
+  },
   "selectedLocation": "Selected location",
+  "@selectedLocation": {
+    "description": "Label or title for displaying the currently selected location"
+  },
   "locationSaved": "Location saved successfully",
+  "@locationSaved": {
+    "description": "Success message shown when a location is successfully saved as favorite"
+  },
   "locationSaveError": "Failed to save the location",
+  "@locationSaveError": {
+    "description": "Error message displayed when saving a location fails"
+  },
   "locationDeleted": "Location deleted successfully",
+  "@locationDeleted": {
+    "description": "Success message shown when a favorite location is successfully deleted"
+  },
   "deleteLocationError": "Failed to delete the location",
+  "@deleteLocationError": {
+    "description": "Error message displayed when deleting a location fails"
+  },
   "loginFailed": "Login failed. Please try again",
+  "@loginFailed": {
+    "description": "Error message shown when user authentication fails"
+  },
   "loginError": "You cannot login with Google at this time",
+  "@loginError": {
+    "description": "Error message displayed when Google login service is unavailable"
+  },
   "fetchLocationsError": "Failed to fetch locations",
+  "@fetchLocationsError": {
+    "description": "Error message shown when loading user's saved locations fails"
+  },
   "logoutSuccess": "You have been logout out successfully",
-  "invalidLocation": "Invalid location selected"
+  "@logoutSuccess": {
+    "description": "Success message displayed when user successfully logs out"
+  },
+  "invalidLocation": "Invalid location selected",
+  "@invalidLocation": {
+    "description": "Error message shown when user selects an invalid or corrupted location"
+  }
 }

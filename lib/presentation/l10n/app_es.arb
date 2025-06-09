@@ -1,30 +1,114 @@
 {
   "authHeading": "Bienvenido a Locations App",
+  "@authHeading": {
+    "description": "Texto del encabezado principal mostrado en la pantalla de autenticación/inicio de sesión"
+  },
   "authSubHeading": "Comparte tus lugares favoritos con el mundo",
+  "@authSubHeading": {
+    "description": "Texto del subencabezado mostrado debajo del encabezado principal en la pantalla de autenticación"
+  },
   "loginGoogleLabel": "Entrar con Google",
+  "@loginGoogleLabel": {
+    "description": "Texto mostrado en el botón de inicio de sesión con Google"
+  },
   "favoriteLocations": "Todos los lugares favoritos",
+  "@favoriteLocations": {
+    "description": "Título para la pantalla o sección que muestra todos los lugares favoritos del usuario"
+  },
   "searchLocationInputLabel": "Busca tu lugar favorito",
+  "@searchLocationInputLabel": {
+    "description": "Etiqueta para el campo de entrada de búsqueda usado para encontrar ubicaciones"
+  },
   "searchLocationInputHint": "Escribe un lugar",
+  "@searchLocationInputHint": {
+    "description": "Texto de marcador de posición mostrado dentro del campo de búsqueda de ubicaciones"
+  },
   "saveFavoriteLabel": "Guardar como favorito",
+  "@saveFavoriteLabel": {
+    "description": "Texto del botón para guardar una ubicación como favorita"
+  },
   "guest": "Invitado",
+  "@guest": {
+    "description": "Nombre mostrado para usuarios que no han iniciado sesión"
+  },
   "email": "No autenticado",
+  "@email": {
+    "description": "Texto mostrado en lugar del email cuando el usuario no está autenticado"
+  },
   "logout": "Salir",
+  "@logout": {
+    "description": "Texto del botón para cerrar sesión en la aplicación"
+  },
   "saveLocationHeading": "Guardar lugar como favorito",
+  "@saveLocationHeading": {
+    "description": "Texto del encabezado para la pantalla donde los usuarios guardan una ubicación como favorita"
+  },
   "saveLocationInputHint": "Escribe una etiqueta para el lugar",
+  "@saveLocationInputHint": {
+    "description": "Texto de marcador de posición para el campo donde los usuarios ingresan una etiqueta/nombre personalizado para la ubicación"
+  },
   "saveLocationInputLabel": "Etiqueta del lugar",
+  "@saveLocationInputLabel": {
+    "description": "Etiqueta para el campo donde los usuarios ingresan una etiqueta/nombre personalizado para la ubicación"
+  },
   "saveLocationLabel": "Guardar",
+  "@saveLocationLabel": {
+    "description": "Texto del botón para confirmar y guardar una ubicación"
+  },
   "invalidInputValue": "Por favor, ingresa un valor válido",
+  "@invalidInputValue": {
+    "description": "Mensaje de error mostrado cuando el usuario ingresa datos inválidos en los campos de entrada"
+  },
   "fetchError": "Ocurrió un error al obtener los datos",
+  "@fetchError": {
+    "description": "Mensaje de error genérico mostrado cuando falla la carga de datos"
+  },
   "you": "Tú",
+  "@you": {
+    "description": "Texto usado para identificar al usuario actual en listas o comparaciones"
+  },
   "noLocations": "No hay lugares guardados",
+  "@noLocations": {
+    "description": "Mensaje mostrado cuando el usuario no tiene ubicaciones favoritas guardadas"
+  },
   "selectedLocation": "Lugar seleccionado",
+  "@selectedLocation": {
+    "description": "Etiqueta o título para mostrar la ubicación actualmente seleccionada"
+  },
   "locationSaved": "Lugar guardado correctamente",
+  "@locationSaved": {
+    "description": "Mensaje de éxito mostrado cuando una ubicación se guarda exitosamente como favorita"
+  },
   "locationSaveError": "No se pudo guardar el lugar",
+  "@locationSaveError": {
+    "description": "Mensaje de error mostrado cuando falla el guardado de una ubicación"
+  },
   "locationDeleted": "Lugar eliminado correctamente",
+  "@locationDeleted": {
+    "description": "Mensaje de éxito mostrado cuando una ubicación favorita se elimina exitosamente"
+  },
   "deleteLocationError": "No se pudo eliminar el lugar",
+  "@deleteLocationError": {
+    "description": "Mensaje de error mostrado cuando falla la eliminación de una ubicación"
+  },
   "loginFailed": "No se pudo iniciar sesión. Intenta nuevamente.",
+  "@loginFailed": {
+    "description": "Mensaje de error mostrado cuando falla la autenticación del usuario"
+  },
   "loginError": "No es posible iniciar sesión con Google por ahora",
+  "@loginError": {
+    "description": "Mensaje de error mostrado cuando el servicio de inicio de sesión de Google no está disponible"
+  },
   "fetchLocationsError": "No se pudieron obtener los lugares",
+  "@fetchLocationsError": {
+    "description": "Mensaje de error mostrado cuando falla la carga de las ubicaciones guardadas del usuario"
+  },
   "logoutSuccess": "Has cerrado sesión correctamente",
-  "invalidLocation": "Lugar no válido seleccionado"
+  "@logoutSuccess": {
+    "description": "Mensaje de éxito mostrado cuando el usuario cierra sesión exitosamente"
+  },
+  "invalidLocation": "Lugar no válido seleccionado",
+  "@invalidLocation": {
+    "description": "Mensaje de error mostrado cuando el usuario selecciona una ubicación inválida o corrupta"
+  }
 }

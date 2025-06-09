@@ -1,3 +1,5 @@
+import 'package:compaqi_test_app/infrastructure/dtos/dtos.dart' show LocationDTO;
+
 class Location {
   String id;
   String tag;
@@ -27,10 +29,15 @@ class Location {
     userEmail: json["user_email"],
   );
 
-  Map<String, dynamic> toJson() => {
-    "tag": tag,
-    "latitude": latitude,
-    "longitude": longitude,
-    "placeId": placeId,
-  };
+  LocationDTO toDTO() {
+    return LocationDTO(
+      id: id,
+      tag: tag,
+      latitude: latitude,
+      longitude: longitude,
+      placeId: placeId,
+      sub: sub,
+      userEmail: userEmail,
+    );
+  }
 }

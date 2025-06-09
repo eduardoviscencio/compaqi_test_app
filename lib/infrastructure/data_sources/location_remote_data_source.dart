@@ -1,19 +1,15 @@
 import 'dart:convert';
 
-import 'package:compaqi_test_app/domain/models/location.dart';
 import 'package:http/http.dart' as http;
 
+import 'package:compaqi_test_app/infrastructure/dtos/dtos.dart' show LocationDTO;
 import 'package:compaqi_test_app/infrastructure/config/config.dart' show Environment;
 import 'package:compaqi_test_app/infrastructure/data_sources/data_sources.dart'
     show LocationDataSource;
 import 'package:compaqi_test_app/infrastructure/services/services.dart' show TokenService;
 
 class LocationRemoteDataSource implements LocationDataSource {
-  late String _baseUrl;
-
-  LocationRemoteDataSource() {
-    _baseUrl = Environment.apiUrl;
-  }
+  final String _baseUrl = Environment.apiUrl;
 
   @override
   Future<http.Response> fetchLocations() async {
@@ -38,7 +34,7 @@ class LocationRemoteDataSource implements LocationDataSource {
   }
 
   @override
-  Future<http.Response> saveLocation(Location location) async {
+  Future<http.Response> saveLocation(LocationDTO location) async {
     try {
       final Uri uri = Uri.https(_baseUrl, '/api/locations');
 

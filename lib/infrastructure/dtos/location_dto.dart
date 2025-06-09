@@ -40,4 +40,11 @@ class LocationDTO {
       userEmail: userEmail,
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    "tag": tag,
+    "latitude": latitude,
+    "longitude": longitude,
+    "placeId": placeId,
+  };
 }

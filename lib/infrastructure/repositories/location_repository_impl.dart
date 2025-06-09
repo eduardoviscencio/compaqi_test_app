@@ -41,7 +41,7 @@ class LocationRepositoryImpl implements LocationRepository {
   @override
   Future<Location> addLocation(Location location) async {
     try {
-      final response = await _remoteDataSource.saveLocation(location);
+      final http.Response response = await _remoteDataSource.saveLocation(location.toDTO());
 
       if (response.statusCode != 201) {
         throw Exception('Failed to save location: ${response.statusCode}');
@@ -63,7 +63,7 @@ class LocationRepositoryImpl implements LocationRepository {
   @override
   Future<void> deleteLocation(String id) async {
     try {
-      final response = await _remoteDataSource.deleteLocation(id);
+      final http.Response response = await _remoteDataSource.deleteLocation(id);
 
       if (response.statusCode != 200) {
         throw Exception('Failed to delete location: ${response.statusCode}');
