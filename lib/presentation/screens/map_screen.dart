@@ -18,7 +18,10 @@ import 'package:compaqi_test_app/presentation/widgets/widgets.dart'
 class MapScreen extends StatefulWidget {
   static const String routeName = 'map_screen';
 
-  const MapScreen({super.key});
+  final double initialLatitude;
+  final double initialLongitude;
+
+  const MapScreen({super.key, required this.initialLatitude, required this.initialLongitude});
 
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -30,16 +33,23 @@ class _MapScreenState extends State<MapScreen> {
 
   Prediction? _selectedPrediction;
 
-  static const CameraPosition _kGooglePlex = CameraPosition(target: LatLng(0, 0), zoom: 0);
+  late CameraPosition _initialCameraPosition = CameraPosition(target: LatLng(0.0, 0.0), zoom: 15.0);
+
+  late LocationsProvider _locationsProvider;
 
   @override
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final provider = context.read<LocationsProvider>();
-      provider.addListener(_onLocationsUpdated);
+    _locationsProvider = context.read<LocationsProvider>();
+    _locationsProvider.addListener(_onLocationsUpdated);
 
+    _initialCameraPosition = CameraPosition(
+      target: LatLng(widget.initialLatitude, widget.initialLongitude),
+      zoom: widget.initialLatitude == 0.0 && widget.initialLongitude == 0.0 ? 0.0 : 15.0,
+    );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       await _fetchLocations();
       _generateMarkers();
     });
@@ -47,7 +57,7 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   void dispose() {
-    context.read<LocationsProvider>().removeListener(_onLocationsUpdated);
+    _locationsProvider.removeListener(_onLocationsUpdated);
     super.dispose();
   }
 
@@ -208,7 +218,7 @@ class _MapScreenState extends State<MapScreen> {
                 mapType: MapType.normal,
                 myLocationButtonEnabled: false,
                 markers: _markers,
-                initialCameraPosition: _kGooglePlex,
+                initialCameraPosition: _initialCameraPosition,
 
                 onMapCreated: (GoogleMapController controller) {
                   _controller.complete(controller);

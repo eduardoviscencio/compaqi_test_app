@@ -59,7 +59,14 @@ class MyApp extends StatelessWidget {
         routes: {
           LoadingCredentialsScreen.routeName: ((_) => const LoadingCredentialsScreen()),
           AuthScreen.routeName: ((_) => AuthScreen()),
-          MapScreen.routeName: ((_) => const MapScreen()),
+          MapScreen.routeName: ((BuildContext context) {
+            final arguments = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+            return MapScreen(
+              initialLatitude: arguments?['latitude'] ?? 0.0,
+              initialLongitude: arguments?['longitude'] ?? 0.0,
+            );
+          }),
           LocationsScreen.routeName: ((_) => const LocationsScreen()),
         },
       ),
