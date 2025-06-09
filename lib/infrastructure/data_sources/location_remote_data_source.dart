@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:compaqi_test_app/domain/models/location.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:compaqi_test_app/infrastructure/config/config.dart' show Environment;
@@ -34,17 +37,28 @@ class LocationRemoteDataSource implements LocationDataSource {
     }
   }
 
-  // Future<void> postLocation(Location location) async {
-  //   final response = await client.post(
-  //     Uri.parse('$baseUrl/locations'),
-  //     headers: {'Content-Type': 'application/json'},
-  //     body: json.encode(location.toJson()),
-  //   );
+  @override
+  Future<http.Response> saveLocation(Location location) async {
+    try {
+      final Uri uri = Uri.https(_baseUrl, '/api/locations');
 
-  //   if (response.statusCode != 201 && response.statusCode != 200) {
-  //     throw Exception('Failed to save location');
-  //   }
-  // }
+      final token = await TokenService.getIdToken();
+
+      if (token == null || token.isEmpty) {
+        throw Exception('Access token is not available');
+      }
+
+      final response = await http.post(
+        uri,
+        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer $token'},
+        body: jsonEncode(location.toJson()),
+      );
+
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 
   // Future<void> removeLocation(String id) async {
   //   final response = await client.delete(Uri.parse('$baseUrl/locations/$id'));

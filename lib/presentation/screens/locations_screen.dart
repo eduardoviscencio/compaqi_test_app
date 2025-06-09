@@ -83,6 +83,7 @@ class _LocationsScreenState extends State<LocationsScreen> {
             itemCount: locations.length,
             itemBuilder: (context, index) {
               final location = locations[index];
+
               return ListTile(
                 title: Text(location.tag, overflow: TextOverflow.ellipsis, maxLines: 2),
                 subtitle: Text(_getUserLabel(location.userEmail), overflow: TextOverflow.ellipsis),

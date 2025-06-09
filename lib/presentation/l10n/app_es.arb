@@ -16,5 +16,8 @@
   "invalidInputValue": "Por favor, ingresa un valor válido",
   "fetchError": "Ocurrió un error al obtener los datos",
   "you": "Tú",
-  "noLocations": "No hay lugares guardados"
+  "noLocations": "No hay lugares guardados",
+  "selectedLocation": "Lugar seleccionado",
+  "locationSaved": "Lugar guardado correctamente",
+  "locationSaveError": "No se pudo guardar el lugar"
 }

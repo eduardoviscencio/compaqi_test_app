@@ -11,4 +11,7 @@ class DependencyInjector {
 
   static GetSavedLocationsUseCase getSavedLocationsUseCase() =>
       GetSavedLocationsUseCase(locationRepository: _locationRepository);
+
+  static AddLocationUseCase addLocationUseCase() =>
+      AddLocationUseCase(locationRepository: _locationRepository);
 }

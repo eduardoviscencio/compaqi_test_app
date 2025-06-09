@@ -44,6 +44,7 @@ class GoogleAppAuth {
 
       return token != null;
     } catch (e) {
+      print('Error checking authentication status: $e');
       throw Exception('Failed to check authentication status: $e');
     }
   }

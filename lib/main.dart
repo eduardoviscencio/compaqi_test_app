@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
           create:
               (_) => LocationsProvider(
                 getSavedLocationsUseCase: DependencyInjector.getSavedLocationsUseCase(),
+                addLocationUseCase: DependencyInjector.addLocationUseCase(),
               ),
         ),
       ],

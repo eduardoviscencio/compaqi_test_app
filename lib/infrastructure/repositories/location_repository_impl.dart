@@ -6,7 +6,8 @@ import 'package:compaqi_test_app/domain/models/models.dart' show Location;
 import 'package:compaqi_test_app/infrastructure/data_sources/data_sources.dart'
     show LocationDataSource;
 import 'package:compaqi_test_app/domain/repositories/repositories.dart' show LocationRepository;
-import 'package:compaqi_test_app/infrastructure/dtos/dtos.dart' show LocationsDTO;
+import 'package:compaqi_test_app/infrastructure/dtos/dtos.dart'
+    show LocationsResponseDTO, LocationResponseDTO;
 
 import 'package:compaqi_test_app/infrastructure/data_sources/data_sources.dart';
 
@@ -25,10 +26,10 @@ class LocationRepositoryImpl implements LocationRepository {
       }
 
       final data = jsonDecode(response.body);
-      final dto = LocationsDTO.fromJson(data);
+      final dto = LocationsResponseDTO.fromJson(data);
 
       if (!dto.ok) {
-        throw Exception('API response not OK');
+        throw Exception('API responded with error');
       }
 
       return dto.toDomain();
@@ -37,14 +38,27 @@ class LocationRepositoryImpl implements LocationRepository {
     }
   }
 
-  // @override
-  // Future<void> saveLocation(Location location) async {
-  //   try {
-  //     await _remoteDataSource.postLocation(location);
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
+  @override
+  Future<Location> addLocation(Location location) async {
+    try {
+      final response = await _remoteDataSource.saveLocation(location);
+
+      if (response.statusCode != 201) {
+        throw Exception('Failed to save location: ${response.statusCode}');
+      }
+
+      final data = jsonDecode(response.body);
+      final dto = LocationResponseDTO.fromJson(data);
+
+      if (!dto.ok) {
+        throw Exception('API responded with error');
+      }
+
+      return dto.toDomain();
+    } catch (e) {
+      rethrow;
+    }
+  }
 
   // @override
   // Future<void> deleteLocation(String id) async {

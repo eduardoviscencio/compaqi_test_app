@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:compaqi_test_app/domain/models/models.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +28,8 @@ class _MapScreenState extends State<MapScreen> {
   final Set<Marker> _markers = <Marker>{};
 
   Prediction? _selectedPrediction;
+
+  static const CameraPosition _kGooglePlex = CameraPosition(target: LatLng(0, 0), zoom: 0);
 
   @override
   void initState() {
@@ -63,6 +66,7 @@ class _MapScreenState extends State<MapScreen> {
           markerId: MarkerId(location.id),
           position: LatLng(location.latitude, location.longitude),
           infoWindow: InfoWindow(title: location.tag, snippet: location.userEmail),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
         ),
       );
     }
@@ -70,19 +74,73 @@ class _MapScreenState extends State<MapScreen> {
     setState(() {});
   }
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
-
   void _onSelectPrediction(Prediction? prediction) {
     if (prediction?.placeId == _selectedPrediction?.placeId) {
       return;
     }
 
+    if (prediction == null) {
+      setState(() {
+        _selectedPrediction = null;
+        _markers.removeWhere((marker) => marker.markerId.value == 'temporal');
+      });
+
+      return;
+    }
+
+    final Marker temporalMarker = Marker(
+      markerId: MarkerId('temporal'),
+      position: LatLng(double.parse(prediction.lat!), double.parse(prediction.lng!)),
+      infoWindow: InfoWindow(title: AppLocalizations.of(context)!.selectedLocation),
+      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+    );
+
     setState(() {
       _selectedPrediction = prediction;
+      _markers.removeWhere((marker) => marker.markerId.value == 'temporal');
+      _markers.add(temporalMarker);
     });
+  }
+
+  Future<void> _onSaved(String? value) async {
+    try {
+      if (value != null && value.isNotEmpty) {
+        final Location newLocation = Location(
+          id: DateTime.now().toIso8601String(),
+          tag: value,
+          latitude: double.parse(_selectedPrediction!.lat!),
+          longitude: double.parse(_selectedPrediction!.lng!),
+          placeId: _selectedPrediction!.placeId!,
+        );
+
+        await context.read<LocationsProvider>().addLocation(newLocation);
+
+        setState(() {
+          _selectedPrediction = null;
+          _markers.removeWhere((marker) => marker.markerId.value == 'temporal');
+        });
+
+        _generateMarkers();
+
+        if (!mounted) return;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          customSnackbar(
+            message: AppLocalizations.of(context)!.locationSaved,
+            type: SnackbarType.success,
+          ),
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        customSnackbar(
+          message: AppLocalizations.of(context)!.locationSaveError,
+          type: SnackbarType.error,
+        ),
+      );
+    }
   }
 
   void _onPressFAB() async {
@@ -90,14 +148,7 @@ class _MapScreenState extends State<MapScreen> {
       context: context,
       isScrollControlled: true,
       builder: (context) {
-        return SaveLocationBottomSheet(
-          onSaved: (String? value) {
-            if (value != null && value.isNotEmpty) {
-              print(value);
-              // addField(value);
-            }
-          },
-        );
+        return SaveLocationBottomSheet(onSaved: _onSaved);
       },
     );
   }

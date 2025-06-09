@@ -1,4 +1,6 @@
-class Location {
+import 'package:compaqi_test_app/domain/models/models.dart' show Location;
+
+class LocationDTO {
   String id;
   String tag;
   double latitude;
@@ -7,7 +9,7 @@ class Location {
   String? sub;
   String? userEmail;
 
-  Location({
+  LocationDTO({
     required this.id,
     required this.tag,
     required this.latitude,
@@ -17,7 +19,7 @@ class Location {
     this.userEmail,
   });
 
-  factory Location.fromJson(Map<String, dynamic> json) => Location(
+  factory LocationDTO.fromJson(Map<String, dynamic> json) => LocationDTO(
     id: json["id"],
     tag: json["tag"],
     latitude: json["latitude"],
@@ -27,10 +29,15 @@ class Location {
     userEmail: json["user_email"],
   );
 
-  Map<String, dynamic> toJson() => {
-    "tag": tag,
-    "latitude": latitude,
-    "longitude": longitude,
-    "placeId": placeId,
-  };
+  Location toDomain() {
+    return Location(
+      id: id,
+      tag: tag,
+      latitude: latitude,
+      longitude: longitude,
+      placeId: placeId,
+      sub: sub,
+      userEmail: userEmail,
+    );
+  }
 }

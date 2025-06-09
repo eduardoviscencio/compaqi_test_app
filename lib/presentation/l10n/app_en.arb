@@ -16,5 +16,8 @@
   "invalidInputValue": "Please enter a valid value",
   "fetchError": "Failed to load data",
   "you": "You",
-  "noLocations": "No saved locations"
+  "noLocations": "No saved locations",
+  "selectedLocation": "Selected location",
+  "locationSaved": "Location saved successfully",
+  "locationSaveError": "Failed to save the location"
 }
