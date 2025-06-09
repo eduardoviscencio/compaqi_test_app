@@ -5,6 +5,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
+import 'package:compaqi_test_app/application/use_cases/auth/biometrics_use_case.dart'
+    as _i9;
 import 'package:compaqi_test_app/application/use_cases/auth/login_use_case.dart'
     as _i3;
 import 'package:compaqi_test_app/application/use_cases/auth/logout_use_case.dart'
@@ -145,4 +147,29 @@ class MockDeleteLocationUseCase extends _i1.Mock
             returnValueForMissingStub: _i4.Future<void>.value(),
           )
           as _i4.Future<void>);
+}
+
+/// A class which mocks [BiometricsUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockBiometricsUseCase extends _i1.Mock implements _i9.BiometricsUseCase {
+  MockBiometricsUseCase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Future<bool> execute() =>
+      (super.noSuchMethod(
+            Invocation.method(#execute, []),
+            returnValue: _i4.Future<bool>.value(false),
+          )
+          as _i4.Future<bool>);
+
+  @override
+  _i4.Future<bool> isBiometricsAvailable() =>
+      (super.noSuchMethod(
+            Invocation.method(#isBiometricsAvailable, []),
+            returnValue: _i4.Future<bool>.value(false),
+          )
+          as _i4.Future<bool>);
 }

@@ -49,6 +49,7 @@ void main() {
   late MockGetSavedLocationsUseCase mockGetSavedLocationsUseCase;
   late MockAddLocationUseCase mockAddLocationUseCase;
   late MockDeleteLocationUseCase mockDeleteLocationUseCase;
+  late MockBiometricsUseCase mockBiometricsUseCase;
   late AuthProvider authProvider;
   late LocationsProvider locationsProvider;
 
@@ -58,12 +59,14 @@ void main() {
     mockGetSavedLocationsUseCase = MockGetSavedLocationsUseCase();
     mockAddLocationUseCase = MockAddLocationUseCase();
     mockDeleteLocationUseCase = MockDeleteLocationUseCase();
+    mockBiometricsUseCase = MockBiometricsUseCase();
 
     authProvider = AuthProvider(loginUseCase: mockLoginUseCase, logoutUseCase: mockLogoutUseCase);
     locationsProvider = LocationsProvider(
       getSavedLocationsUseCase: mockGetSavedLocationsUseCase,
       addLocationUseCase: mockAddLocationUseCase,
       deleteLocationUseCase: mockDeleteLocationUseCase,
+      biometricsUseCase: mockBiometricsUseCase,
     );
   });
 
