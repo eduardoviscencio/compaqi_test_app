@@ -58,8 +58,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     CircleAvatar(
                       radius: 30,
                       backgroundImage:
-                          user?.picture != null
-                              ? NetworkImage(user!.picture)
+                          user?.picture != null && user!.picture.isNotEmpty
+                              ? NetworkImage(user.picture)
                               : const AssetImage('assets/images/default_avatar.webp')
                                   as ImageProvider,
                     ),

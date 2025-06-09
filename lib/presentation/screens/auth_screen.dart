@@ -32,6 +32,13 @@ class _AuthScreenState extends State<AuthScreen> {
 
       if (status == AuthStatus.authenticated) {
         Navigator.of(context).pushReplacementNamed(MapScreen.routeName);
+      } else if (status == AuthStatus.error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          customSnackbar(
+            message: AppLocalizations.of(context)!.loginError,
+            type: SnackbarType.error,
+          ),
+        );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           customSnackbar(
