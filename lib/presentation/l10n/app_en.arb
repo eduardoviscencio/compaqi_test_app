@@ -21,5 +21,10 @@
   "locationSaved": "Location saved successfully",
   "locationSaveError": "Failed to save the location",
   "locationDeleted": "Location deleted successfully",
-  "deleteLocationError": "Failed to delete the location"
+  "deleteLocationError": "Failed to delete the location",
+  "loginFailed": "Login failed. Please try again",
+  "loginError": "You cannot login with Google at this time",
+  "fetchLocationsError": "Failed to fetch locations",
+  "logoutSuccess": "You have been logout out successfully",
+  "invalidLocation": "Invalid location selected"
 }

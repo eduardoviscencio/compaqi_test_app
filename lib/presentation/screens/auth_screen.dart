@@ -34,7 +34,10 @@ class _AuthScreenState extends State<AuthScreen> {
         Navigator.of(context).pushReplacementNamed(MapScreen.routeName);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          customSnackbar(message: 'Login failed. Please try again.', type: SnackbarType.error),
+          customSnackbar(
+            message: AppLocalizations.of(context)!.loginFailed,
+            type: SnackbarType.error,
+          ),
         );
       }
     } catch (e) {
@@ -43,10 +46,7 @@ class _AuthScreenState extends State<AuthScreen> {
       }
 
       ScaffoldMessenger.of(context).showSnackBar(
-        customSnackbar(
-          message: 'You cannot login with Google at this time.',
-          type: SnackbarType.error,
-        ),
+        customSnackbar(message: AppLocalizations.of(context)!.loginError, type: SnackbarType.error),
       );
     }
   }

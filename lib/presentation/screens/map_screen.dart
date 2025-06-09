@@ -68,7 +68,10 @@ class _MapScreenState extends State<MapScreen> {
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        customSnackbar(message: 'Failed to fetch locations', type: SnackbarType.error),
+        customSnackbar(
+          message: AppLocalizations.of(context)!.fetchLocationsError,
+          type: SnackbarType.error,
+        ),
       );
     }
   }

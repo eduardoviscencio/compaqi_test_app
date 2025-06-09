@@ -26,7 +26,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
     if (!mounted) return;
 
     ScaffoldMessenger.of(context).showSnackBar(
-      customSnackbar(message: 'You have been logged out successfully.', type: SnackbarType.success),
+      customSnackbar(
+        message: AppLocalizations.of(context)!.logoutSuccess,
+        type: SnackbarType.success,
+      ),
     );
 
     Navigator.pop(context);

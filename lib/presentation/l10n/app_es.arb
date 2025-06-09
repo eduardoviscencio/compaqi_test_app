@@ -21,5 +21,10 @@
   "locationSaved": "Lugar guardado correctamente",
   "locationSaveError": "No se pudo guardar el lugar",
   "locationDeleted": "Lugar eliminado correctamente",
-  "deleteLocationError": "No se pudo eliminar el lugar"
+  "deleteLocationError": "No se pudo eliminar el lugar",
+  "loginFailed": "No se pudo iniciar sesión. Intenta nuevamente.",
+  "loginError": "No es posible iniciar sesión con Google por ahora",
+  "fetchLocationsError": "No se pudieron obtener los lugares",
+  "logoutSuccess": "Has cerrado sesión correctamente",
+  "invalidLocation": "Lugar no válido seleccionado"
 }

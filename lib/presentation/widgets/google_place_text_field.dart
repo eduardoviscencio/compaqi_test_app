@@ -66,7 +66,10 @@ class _GooglePlaceTextFieldState extends State<GooglePlaceTextField> {
       mapController.animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, lng), 14));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        customSnackbar(message: 'Invalid location selected', type: SnackbarType.warning),
+        customSnackbar(
+          message: AppLocalizations.of(context)!.invalidLocation,
+          type: SnackbarType.warning,
+        ),
       );
     }
   }
