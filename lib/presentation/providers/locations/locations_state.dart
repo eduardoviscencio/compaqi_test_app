@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import 'package:compaqi_test_app/domain/models/models.dart' show Location;
 
-enum LocationsStatus { idle, loading, success, error, adding, deleting }
+enum LocationsStatus { idle, loading, success, adding, deleting, authFailed, error }
 
 class LocationsState extends Equatable {
   final List<Location> locations;

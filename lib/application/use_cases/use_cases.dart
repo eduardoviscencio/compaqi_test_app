@@ -1,3 +1,4 @@
+export 'package:compaqi_test_app/application/use_cases/auth/biometrics_use_case.dart';
 export 'package:compaqi_test_app/application/use_cases/auth/login_use_case.dart';
 export 'package:compaqi_test_app/application/use_cases/auth/logout_use_case.dart';
 export 'package:compaqi_test_app/application/use_cases/locations/add_location_use_case.dart';

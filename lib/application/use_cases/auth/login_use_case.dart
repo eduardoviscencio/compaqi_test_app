@@ -10,7 +10,7 @@ class LoginUseCase {
     try {
       return await _authRepository.login();
     } catch (e) {
-      rethrow;
+      throw Exception('Failed to login: $e');
     }
   }
 
@@ -18,7 +18,7 @@ class LoginUseCase {
     try {
       return await _authRepository.isLoggedIn();
     } catch (e) {
-      return false;
+      throw Exception('Failed to check login status: $e');
     }
   }
 
@@ -26,7 +26,7 @@ class LoginUseCase {
     try {
       return await _authRepository.getLoggedUser();
     } catch (e) {
-      rethrow;
+      throw Exception('Failed to get logged user: $e');
     }
   }
 }

@@ -10,7 +10,7 @@ class DeleteLocationUseCase {
     try {
       await _locationRepository.deleteLocation(id);
     } catch (e) {
-      rethrow;
+      throw Exception('Failed to delete location: $e');
     }
   }
 }

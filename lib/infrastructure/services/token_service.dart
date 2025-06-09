@@ -49,19 +49,21 @@ class TokenService {
         ),
       );
 
-      if (result.accessToken == null || result.refreshToken == null || result.idToken == null) {
+      if (result.accessToken == null || result.idToken == null) {
         return false;
       }
 
+      final newRefreshToken = result.refreshToken ?? refreshToken;
+
       await saveTokens(
         result.accessToken!,
-        result.refreshToken!,
-        result.idToken ?? '',
+        newRefreshToken,
+        result.idToken!,
         result.accessTokenExpirationDateTime,
       );
+
       return true;
     } catch (e) {
-      print('Error refreshing tokens: $e');
       return false;
     }
   }

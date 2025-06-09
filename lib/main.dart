@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
                 getSavedLocationsUseCase: DependencyInjector.getSavedLocationsUseCase(),
                 addLocationUseCase: DependencyInjector.addLocationUseCase(),
                 deleteLocationUseCase: DependencyInjector.deleteLocationUseCase(),
+                biometricsUseCase: DependencyInjector.biometricsUseCase(),
               ),
         ),
       ],

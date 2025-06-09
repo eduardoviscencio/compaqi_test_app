@@ -8,6 +8,9 @@ class DependencyInjector {
   static final GoogleAuthRepository _googleAuthRepository = GoogleAuthRepository(
     dataSource: _googleAppAuth,
   );
+  static final BiometricsRepositoryImpl _biometricsRepository = BiometricsRepositoryImpl(
+    localAuth: LocalAuthDataSource(),
+  );
 
   static final LocationRemoteDataSource _locationRemoteDataSource = LocationRemoteDataSource();
   static final LocationRepository _locationRepository = LocationRepositoryImpl(
@@ -15,6 +18,9 @@ class DependencyInjector {
   );
 
   static LoginUseCase loginUseCase() => LoginUseCase(authRepository: _googleAuthRepository);
+
+  static BiometricsUseCase biometricsUseCase() =>
+      BiometricsUseCase(biometricsRepository: _biometricsRepository);
 
   static LogoutUseCase logoutUseCase() => LogoutUseCase(authRepository: _googleAuthRepository);
 

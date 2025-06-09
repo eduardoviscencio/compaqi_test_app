@@ -11,7 +11,7 @@ class AddLocationUseCase {
     try {
       return await _locationRepository.addLocation(location);
     } catch (e) {
-      rethrow;
+      throw Exception('Failed to add location: $e');
     }
   }
 }

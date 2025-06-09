@@ -11,7 +11,7 @@ class GetSavedLocationsUseCase {
     try {
       return await _locationRepository.getSavedLocations();
     } catch (e) {
-      rethrow;
+      throw Exception('Failed to get saved locations: $e');
     }
   }
 }

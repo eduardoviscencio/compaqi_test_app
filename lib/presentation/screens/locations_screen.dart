@@ -39,6 +39,14 @@ class _LocationsScreenState extends State<LocationsScreen> {
   Future<void> _fetchLocations() async {
     try {
       await context.read<LocationsProvider>().fetchLocations();
+
+      if (!mounted) return;
+
+      final status = context.read<LocationsProvider>().state.status;
+
+      if (status == LocationsStatus.error) {
+        throw Exception('Error fetching locations');
+      }
     } catch (e) {
       if (!mounted) return;
 
@@ -57,6 +65,12 @@ class _LocationsScreenState extends State<LocationsScreen> {
       await context.read<LocationsProvider>().deleteLocation(id);
 
       if (!mounted) return;
+
+      final status = context.read<LocationsProvider>().state.status;
+
+      if (status == LocationsStatus.authFailed || status == LocationsStatus.error) {
+        throw Exception('Error deleting location');
+      }
 
       ScaffoldMessenger.of(context).showSnackBar(
         customSnackbar(
@@ -102,10 +116,6 @@ class _LocationsScreenState extends State<LocationsScreen> {
                   child: CircularProgressIndicator(color: primaryColor, strokeWidth: 1.0),
                 ),
               );
-            }
-
-            if (status == LocationsStatus.error) {
-              return Center(child: Text(AppLocalizations.of(context)!.fetchError));
             }
 
             if (locations.isEmpty) {

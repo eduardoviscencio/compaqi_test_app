@@ -9,7 +9,7 @@ class LogoutUseCase {
     try {
       await _authRepository.logout();
     } catch (e) {
-      rethrow;
+      throw Exception('Failed to logout: $e');
     }
   }
 }

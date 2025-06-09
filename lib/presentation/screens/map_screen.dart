@@ -64,6 +64,14 @@ class _MapScreenState extends State<MapScreen> {
   Future<void> _fetchLocations() async {
     try {
       await context.read<LocationsProvider>().fetchLocations();
+
+      if (!mounted) return;
+
+      final state = context.read<LocationsProvider>().state;
+
+      if (state.status == LocationsStatus.error) {
+        throw Exception('Error fetching locations');
+      }
     } catch (e) {
       if (!mounted) return;
 
@@ -160,6 +168,14 @@ class _MapScreenState extends State<MapScreen> {
         );
 
         await context.read<LocationsProvider>().addLocation(newLocation);
+
+        if (!mounted) return;
+
+        final state = context.read<LocationsProvider>().state;
+
+        if (state.status == LocationsStatus.error) {
+          throw Exception('Error saving location');
+        }
 
         setState(() {
           _selectedPrediction = null;

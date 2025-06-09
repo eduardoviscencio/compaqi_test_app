@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:compaqi_test_app/application/use_cases/use_cases.dart'
-    show GetSavedLocationsUseCase, AddLocationUseCase, DeleteLocationUseCase;
+    show GetSavedLocationsUseCase, AddLocationUseCase, DeleteLocationUseCase, BiometricsUseCase;
 import 'package:compaqi_test_app/domain/models/models.dart' show Location;
 import 'package:compaqi_test_app/presentation/providers/locations/locations_state.dart';
 
@@ -9,6 +9,7 @@ class LocationsProvider extends ChangeNotifier {
   final GetSavedLocationsUseCase _getSavedLocationsUseCase;
   final AddLocationUseCase _addLocationUseCase;
   final DeleteLocationUseCase _deleteLocationUseCase;
+  final BiometricsUseCase _biometricsUseCase;
 
   LocationsState _state = LocationsState.initial();
 
@@ -16,9 +17,11 @@ class LocationsProvider extends ChangeNotifier {
     required GetSavedLocationsUseCase getSavedLocationsUseCase,
     required AddLocationUseCase addLocationUseCase,
     required DeleteLocationUseCase deleteLocationUseCase,
+    required BiometricsUseCase biometricsUseCase,
   }) : _getSavedLocationsUseCase = getSavedLocationsUseCase,
        _addLocationUseCase = addLocationUseCase,
-       _deleteLocationUseCase = deleteLocationUseCase;
+       _deleteLocationUseCase = deleteLocationUseCase,
+       _biometricsUseCase = biometricsUseCase;
 
   LocationsState get state => _state;
 
@@ -68,6 +71,17 @@ class LocationsProvider extends ChangeNotifier {
     try {
       _state = _state.copyWith(status: LocationsStatus.deleting);
       notifyListeners();
+
+      final bool isBiometricAvailable = await _biometricsUseCase.isBiometricsAvailable();
+
+      if (isBiometricAvailable) {
+        final successLocalAuth = await _biometricsUseCase.execute();
+
+        if (!successLocalAuth) {
+          _state = _state.copyWith(status: LocationsStatus.authFailed);
+          return;
+        }
+      }
 
       await _deleteLocationUseCase.execute(id);
 
