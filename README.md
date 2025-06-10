@@ -67,6 +67,7 @@ La capa de presentación maneja las interacciones del usuario y muestra datos de
 Tomando en cuenta todos los puntos solicitados en la prueba, se optó por desarrollar una aplicación funcional que integrara cada uno de ellos de manera coherente. La solución presentada permite a los usuarios autenticarse mediante OAuth con Google y comunicarse con una API pública propia. Aunque la creación de esta API no formaba parte explícita de los requisitos, se consideró esencial para garantizar una comunicación adecuada entre la aplicación y el backend, permitiendo así obtener, guardar y eliminar datos de forma segura en una base de datos.
 
 **URL**: https://compaqi-test-backend.onrender.com
+
 **Repositorio**: https://github.com/eduardoviscencio/compaqi-test-backend
 
 ## Mejoras futuras
