@@ -105,7 +105,7 @@ jobs:
           echo "version=$version" >> $GITHUB_OUTPUT
 
       - name: Upload Android artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: android-aab-${{ steps.extract_version.outputs.version }}
           path: build/app/outputs/bundle/release/app-release.aab
@@ -151,7 +151,7 @@ jobs:
           echo "version=$version" >> $GITHUB_OUTPUT
 
       - name: Upload iOS artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ios-ipa-${{ steps.extract_version.outputs.version }}
           path: build/ios_build.tar.gz
