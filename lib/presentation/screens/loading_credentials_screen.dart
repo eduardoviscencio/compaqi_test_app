@@ -23,14 +23,6 @@ class _LoadingCredentialsScreenState extends State<LoadingCredentialsScreen> {
   }
 
   Future<void> _checkSession() async {
-    // if (kReleaseMode) {
-    //   print('Checking session in release mode...');
-    // }
-
-    // if (kDebugMode) {
-    //   print('Checking session in debug mode...');
-    // }
-
     final authProvider = context.read<AuthProvider>();
     final isLoggedIn = await authProvider.isLoggedIn();
 

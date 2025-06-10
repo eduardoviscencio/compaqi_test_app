@@ -30,7 +30,6 @@ class GoogleAppAuth {
 
       return result;
     } catch (e) {
-      print('Authentication error: $e');
       throw Exception('Authentication failed: $e');
     }
   }
