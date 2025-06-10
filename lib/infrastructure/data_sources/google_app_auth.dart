@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter_appauth/flutter_appauth.dart';
@@ -44,7 +41,6 @@ class GoogleAppAuth {
 
       return token != null;
     } catch (e) {
-      print('Error checking authentication status: $e');
       throw Exception('Failed to check authentication status: $e');
     }
   }
