@@ -131,7 +131,9 @@ jobs:
           git clone https://eduardoviscencio:${{ secrets.CI_PAT }}@github.com/eduardoviscencio/compaqi-secrets.git
 
       - name: Copy secrets
-        run: cp compaqi-secrets/env.json .
+        run: |
+          cp compaqi-secrets/env.json .
+          cp compaqi-secrets/Config.xcconfig ios/
 
       - name: Install dependencies
         run: flutter pub get

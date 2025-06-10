@@ -46,6 +46,7 @@ android {
         versionName = flutter.versionName
 
         manifestPlaceholders["appAuthRedirectScheme"] = "com.eduardoviscencio.compaqi_test_app"
+        manifestPlaceholders["googleMapsApiKey"] = "AIzaSyDiBbuLc8Rd_c22emf97wFZS257zWIPCsw"
     }
 
     buildTypes {
