@@ -76,3 +76,5 @@ Tomando en cuenta todos los puntos solicitados en la prueba, se optó por desarr
 2. **Manejo avanzado de errores**: Integrar herramientas como Firebase Crashlytics para el monitoreo y reporte automático de errores, facilitando la identificación y resolución de problemas en producción. Además, es óptimo manejar CustomExceptions para identificar de manera correcta los errores.
 
 3. **Cambio dinámico de idioma**: Permitir a los usuarios cambiar el idioma de la aplicación directamente desde la interfaz, independientemente del idioma del sistema, ofreciendo una experiencia más personalizada y flexible.
+
+4. **Automatización de despliegue continuo**: Implementar herramientas como Fastlane para automatizar completamente el proceso de despliegue a las tiendas de aplicaciones (Google Play Store y App Store). Esto incluiría la automatización de subida de metadatos, capturas de pantalla, generación automática de changelogs, y distribución a diferentes tracks (alpha, beta, producción), reduciendo significativamente el tiempo y esfuerzo manual requerido para cada release.

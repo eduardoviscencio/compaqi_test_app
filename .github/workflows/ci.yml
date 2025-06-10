@@ -42,8 +42,8 @@ jobs:
         run: |
           echo "Skipping build: commit message does not include '--build'."
 
-  build:
-    name: Build artifact for Android
+  build-android:
+    name: Build Android AAB
     needs: analyze
     if: contains(github.event.head_commit.message, '--build')
     runs-on: ubuntu-latest
@@ -104,8 +104,54 @@ jobs:
           version=$(grep '^version: ' pubspec.yaml | cut -d ' ' -f 2 | tr -d '\r')
           echo "version=$version" >> $GITHUB_OUTPUT
 
-      - name: Upload App Bundle
-        uses: actions/upload-artifact@v4
+      - name: Upload Android artifact
+        uses: actions/upload-artifact@v2
         with:
-          name: locations-app-${{ steps.extract_version.outputs.version }}.aab
+          name: android-aab-${{ steps.extract_version.outputs.version }}
           path: build/app/outputs/bundle/release/app-release.aab
+
+  build-ios:
+    name: Build iOS IPA
+    needs: analyze
+    if: contains(github.event.head_commit.message, '--build')
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.2'
+          channel: stable
+
+      - name: Clone secrets repository
+        run: |
+          git clone https://eduardoviscencio:${{ secrets.CI_PAT }}@github.com/eduardoviscencio/compaqi-secrets.git
+
+      - name: Copy secrets
+        run: cp compaqi-secrets/env.json .
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build IPA (no codesign)
+        run: flutter build ipa --no-codesign --dart-define-from-file=env.json
+
+      - name: Compress iOS build
+        run: |
+          cd build
+          tar -czf ios_build.tar.gz ios
+
+      - name: Extract version from pubspec.yaml
+        id: extract_version
+        run: |
+          version=$(grep '^version: ' pubspec.yaml | cut -d ' ' -f 2 | tr -d '\r')
+          echo "version=$version" >> $GITHUB_OUTPUT
+
+      - name: Upload iOS artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ios-ipa-${{ steps.extract_version.outputs.version }}
+          path: build/ios_build.tar.gz
