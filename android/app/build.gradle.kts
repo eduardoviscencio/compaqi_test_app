@@ -15,6 +15,14 @@ val keystoreProperties = Properties().apply {
     }
 }
 
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(FileInputStream(localPropertiesFile))
+}
+
+val googleMapsApiKey = localProperties["GOOGLE_MAPS_API_KEY"] ?: ""
+
 android {
     namespace = "com.eduardoviscencio.compaqi_test_app"
     compileSdk = flutter.compileSdkVersion
@@ -46,7 +54,7 @@ android {
         versionName = flutter.versionName
 
         manifestPlaceholders["appAuthRedirectScheme"] = "com.eduardoviscencio.compaqi_test_app"
-        manifestPlaceholders["googleMapsApiKey"] = "AIzaSyDiBbuLc8Rd_c22emf97wFZS257zWIPCsw"
+        manifestPlaceholders["googleMapsApiKey"] = googleMapsApiKey
     }
 
     buildTypes {

@@ -70,7 +70,9 @@ jobs:
           git clone https://eduardoviscencio:${{ secrets.CI_PAT }}@github.com/eduardoviscencio/compaqi-secrets.git
 
       - name: Copy secrets
-        run: cp compaqi-secrets/env.json .
+        run: |
+          cp compaqi-secrets/env.json .
+          cp compaqi-secrets/local.properties android/
 
       - name: Cache Flutter dependencies
         uses: actions/cache@v3
