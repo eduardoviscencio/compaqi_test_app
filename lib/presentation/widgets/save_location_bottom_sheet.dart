@@ -74,8 +74,8 @@ class _SaveLocationBottomSheetState extends State<SaveLocationBottomSheet> {
             const SizedBox(height: 20),
             TextButton.icon(
               onPressed: _onSaved,
-              label: const Text(
-                'Save',
+              label: Text(
+                AppLocalizations.of(context)!.saveLocationLabel,
                 style: TextStyle(fontSize: fontSizeText, color: primaryColor),
               ),
               icon: const Icon(Icons.check_rounded, color: primaryColor),
